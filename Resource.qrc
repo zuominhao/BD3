@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/心如止水.jpg</file>
+    </qresource>
+</RCC>
