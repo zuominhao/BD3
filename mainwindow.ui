@@ -65,7 +65,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>选择文件</string>
+     <string>复制存档</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_4">
@@ -78,7 +78,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>文件覆盖</string>
+     <string>覆盖存档</string>
     </property>
    </widget>
   </widget>
