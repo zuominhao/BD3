@@ -21,6 +21,7 @@ private slots: // 声明私有槽函数
     void useSVN(); // 声明显示成功对话框的函数
     QString selectFolder(); // 添加选择文件夹槽函数的声明
     void overWriteSaveFile();//添加覆盖存档的声明
+    void copyFile();//复制存档
 
 private:
     Ui::MainWindow *ui;

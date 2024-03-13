@@ -5,6 +5,7 @@
 #include <QDir>
 #include <QDesktopServices>
 #include <windows.h>
+#include <QDateTime>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->pushButton_2, &QPushButton::clicked, this, &MainWindow::useSVN); // 使用SVN的更新
 
-    // connect(ui->pushButton_3, &QPushButton::clicked, this, &MainWindow::selectFolder);
+    connect(ui->pushButton_3, &QPushButton::clicked, this, &MainWindow::copyFile);
 
     connect(ui->pushButton_4, &QPushButton::clicked, this, &MainWindow::overWriteSaveFile);//覆盖存档
 }
@@ -69,4 +70,34 @@ void MainWindow::overWriteSaveFile()
         QMessageBox::warning(this, "Move File", "Source file does not exist!");
     }
 
+}
+
+void MainWindow::copyFile() {
+    QString sourceDir = "BD3的存档目录路径"; // 替换为BD3的存档目录路径
+    QString destinationDir = "特定位置A的路径"; // 替换为特定位置A的路径
+
+    // 获取BD3存档目录下最新的文件
+    QDir dir(sourceDir);
+    dir.setFilter(QDir::Files | QDir::NoSymLinks);
+    dir.setSorting(QDir::Time | QDir::Reversed);
+    QStringList filters;
+    filters << "*.sav"; // 假设存档文件的扩展名为.sav
+    dir.setNameFilters(filters);
+    QStringList fileList = dir.entryList();
+    if (fileList.isEmpty()) {
+        qDebug() << "No BD3 save files found.";
+        return;
+    }
+    QString latestFile = dir.absoluteFilePath(fileList.first());
+
+    // 构建目标路径
+    QString fileName = QFileInfo(latestFile).fileName();
+    QString destinationPath = QDir(destinationDir).filePath(fileName);
+
+    // 拷贝文件
+    if (QFile::copy(latestFile, destinationPath)) {
+        qDebug() << "File copied successfully.";
+    } else {
+        qDebug() << "Failed to copy file.";
+    }
 }
